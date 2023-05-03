@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("access_token");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+  return config;
+});
+
 export default function List() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
-  let token = "4|FItzyd9DHKm9ocgj9G7onrrjWQV27LpbZ8EwpFcG";
+  let token = localStorage.getItem("access_token");
   const config = {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
 
   const fetchPosts = async () => {
@@ -55,14 +64,40 @@ export default function List() {
       });
   };
 
+  const handleLogout = async () => {
+    await axios
+      .post(`http://127.0.0.1:8000/api/logout`, config)
+      .then(({ data }) => {
+        Swal.fire({
+          icon: "success",
+          text: data.message,
+        });
+        navigate("/login");
+      })
+      .catch(({ response }) => {
+        Swal.fire({
+          text: response.data.message,
+          icon: "error",
+        });
+      });
+  };
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <Link className="btn btn-primary mb-2 float-end" to={"/post/create"}>
+          <Link className="btn btn-primary mb-2" to={"/post/create"}>
             Create Post
           </Link>
+          <Button
+            variant="danger"
+            className="float-end"
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </Button>
         </div>
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <div className="col-12">
           <div className="card card-body">
             <div className="table-responsive">

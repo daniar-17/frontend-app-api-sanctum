@@ -22,7 +22,7 @@ export default function EditPost() {
     fetchPost();
   }, []);
 
-  let token = "4|FItzyd9DHKm9ocgj9G7onrrjWQV27LpbZ8EwpFcG";
+  let token = localStorage.getItem("access_token");
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };

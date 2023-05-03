@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import PostList from "./components/post/list.component";
 import PostCreate from "./components/post/add.component";
 import PostEdit from "./components/post/edit.component";
+import Login from "./components/login/login.component";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route exact path="/" element={<PostList />} />
               <Route path="/post/create" element={<PostCreate />} />
               <Route path="/post/edit/:id" element={<PostEdit />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </Col>
         </Row>

@@ -1,3 +1,14 @@
+Run : npm start
+
 Reference : https://techvblogs.com/blog/build-crud-app-with-laravel-and-reactjs
 
 Back End : app-apisanctum same in folder this project
+Name in Github : frontend-app-api-sanctum
+
+# Set Code Log Out (ex : list.component.js)
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("access_token");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
+  return config;
+});
+https://www.youtube.com/watch?v=6ZJrJL_ZjiM

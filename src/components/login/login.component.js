@@ -10,35 +10,27 @@ import { useNavigate, Link } from "react-router-dom";
 export default function CreatePost() {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [slug, setSlug] = useState("");
-  const [status, setStatus] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [validationError, setValidationError] = useState({});
 
-  const createPost = async (e) => {
+  const createLogin = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
 
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("slug", slug);
-    formData.append("status", status);
-
-    let token = localStorage.getItem("access_token");
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+    formData.append("email", email);
+    formData.append("password", password);
 
     await axios
-      .post(`http://localhost:8000/api/posts`, formData, config)
+      .post(`http://localhost:8000/api/login`, formData)
       .then(({ data }) => {
         Swal.fire({
           icon: "success",
           text: data.message,
         });
-        navigate("/");
+        console.log(data);
+        localStorage.setItem("access_token", data.access_token);
       })
       .catch(({ response }) => {
         if (response.status === 422) {
@@ -58,7 +50,7 @@ export default function CreatePost() {
         <div className="col-12 col-sm-12 col-md-6">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">Create Post</h4>
+              <h4 className="card-title">Login</h4>
               <hr />
               <div className="form-wrapper">
                 {Object.keys(validationError).length > 0 && (
@@ -76,31 +68,16 @@ export default function CreatePost() {
                     </div>
                   </div>
                 )}
-                <Form onSubmit={createPost}>
+                <Form onSubmit={createLogin}>
                   <Row>
                     <Col>
-                      <Form.Group controlId="Title">
-                        <Form.Label>Title</Form.Label>
+                      <Form.Group controlId="Email">
+                        <Form.Label>Email</Form.Label>
                         <Form.Control
                           type="text"
-                          value={title}
+                          value={email}
                           onChange={(event) => {
-                            setTitle(event.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row className="my-3">
-                    <Col>
-                      <Form.Group controlId="Content">
-                        <Form.Label>Content</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
-                          value={content}
-                          onChange={(event) => {
-                            setContent(event.target.value);
+                            setEmail(event.target.value);
                           }}
                         />
                       </Form.Group>
@@ -108,47 +85,27 @@ export default function CreatePost() {
                   </Row>
                   <Row>
                     <Col>
-                      <Form.Group controlId="Slug">
-                        <Form.Label>Slug</Form.Label>
+                      <Form.Group controlId="Password">
+                        <Form.Label>Password</Form.Label>
                         <Form.Control
                           type="text"
-                          value={slug}
+                          value={password}
                           onChange={(event) => {
-                            setSlug(event.target.value);
-                          }}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Form.Group controlId="Status">
-                        <Form.Label>Status</Form.Label>
-                        <Form.Control
-                          type="number"
-                          value={status}
-                          onChange={(event) => {
-                            setStatus(event.target.value);
+                            setPassword(event.target.value);
                           }}
                         />
                       </Form.Group>
                     </Col>
                   </Row>
                   <Button
-                    variant="primary"
+                    variant="success"
                     className="mt-2"
                     size="lg"
                     block="block"
                     type="submit"
                   >
-                    Save
+                    Login
                   </Button>
-                  <Link
-                    className="btn btn-secondary btn-lg mb-2 float-end mt-2"
-                    to={"/"}
-                  >
-                    Back
-                  </Link>
                 </Form>
               </div>
             </div>
