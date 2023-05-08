@@ -50,7 +50,7 @@ export default function CreatePost() {
         <div className="col-12 col-sm-12 col-md-6">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">Login</h4>
+              <h4 className="card-title text-center">Login</h4>
               <hr />
               <div className="form-wrapper">
                 {Object.keys(validationError).length > 0 && (

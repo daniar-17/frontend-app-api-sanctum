@@ -5,7 +5,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
 
 import PostList from "./components/post/list.component";
 import PostCreate from "./components/post/add.component";
@@ -27,10 +33,11 @@ function App() {
         <Row>
           <Col md={12}>
             <Routes>
-              <Route exact path="/" element={<PostList />} />
+              <Route path="/" element={<Navigate to="/login" />}></Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/post" element={<PostList />} />
               <Route path="/post/create" element={<PostCreate />} />
               <Route path="/post/edit/:id" element={<PostEdit />} />
-              <Route path="/login" element={<Login />} />
             </Routes>
           </Col>
         </Row>
