@@ -12,3 +12,8 @@ axios.interceptors.request.use(function (config) {
   return config;
 });
 https://www.youtube.com/watch?v=6ZJrJL_ZjiM
+
+# Handle route = '/' to be replace = '/login'
+
+# When user is not logged in redirect to login. Reactjs
+https://stackoverflow.com/questions/47476186/when-user-is-not-logged-in-redirect-to-login-reactjs
