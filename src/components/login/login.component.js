@@ -29,7 +29,6 @@ export default function CreatePost() {
           icon: "success",
           text: data.message,
         });
-        console.log(data);
         localStorage.setItem("access_token", data.access_token);
       })
       .catch(({ response }) => {
@@ -88,7 +87,7 @@ export default function CreatePost() {
                       <Form.Group controlId="Password">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
-                          type="text"
+                          type="password"
                           value={password}
                           onChange={(event) => {
                             setPassword(event.target.value);

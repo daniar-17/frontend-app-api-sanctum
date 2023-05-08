@@ -30,10 +30,10 @@ export default function List() {
     fetchPosts();
   }, []);
 
-  const deletePost = async (id) => {
+  const deletePost = async (id, title) => {
     const isConfirm = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Are you sure ?",
+      text: "Delete Post : " + title,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -127,7 +127,7 @@ export default function List() {
                         </Link>
                         <Button
                           variant="danger"
-                          onClick={() => deletePost(post.id)}
+                          onClick={() => deletePost(post.id, post.title)}
                         >
                           Delete
                         </Button>

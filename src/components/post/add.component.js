@@ -38,7 +38,7 @@ export default function CreatePost() {
           icon: "success",
           text: data.message,
         });
-        navigate("/");
+        navigate("/post");
       })
       .catch(({ response }) => {
         if (response.status === 422) {
@@ -145,7 +145,7 @@ export default function CreatePost() {
                   </Button>
                   <Link
                     className="btn btn-secondary btn-lg mb-2 float-end mt-2"
-                    to={"/"}
+                    to={"/post"}
                   >
                     Back
                   </Link>
