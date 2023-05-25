@@ -72,6 +72,7 @@ export default function List() {
           icon: "success",
           text: data.message,
         });
+        localStorage.removeItem("access_token");
         navigate("/login");
       })
       .catch(({ response }) => {

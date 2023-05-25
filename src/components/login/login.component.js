@@ -25,11 +25,12 @@ export default function CreatePost() {
     await axios
       .post(`http://localhost:8000/api/login`, formData)
       .then(({ data }) => {
+        localStorage.setItem("access_token", data.access_token);
         Swal.fire({
           icon: "success",
           text: data.message,
         });
-        localStorage.setItem("access_token", data.access_token);
+        navigate("/post");
       })
       .catch(({ response }) => {
         if (response.status === 422) {
